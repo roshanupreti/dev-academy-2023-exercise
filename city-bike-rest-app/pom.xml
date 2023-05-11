@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>city-bike-rest</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>city-bike-app</module>
+    </modules>
+    <packaging>pom</packaging>
+    <name>Jersey WebApp</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <jersey.version>3.1.1</jersey.version>
+        <servlet.api.version>5.0.0</servlet.api.version>
+        <jakarta.ejb.api.version>4.0.1</jakarta.ejb.api.version>
+        <slf4j.version>2.0.5</slf4j.version>
+        <jakarta.activation.api.version>2.1.0</jakarta.activation.api.version>
+        <jakarta.enterprise.cdi.api.version>4.0.1</jakarta.enterprise.cdi.api.version>
+        <lombok.version>1.18.26</lombok.version>
+        <hk2.metadata.generator.version>3.0.3</hk2.metadata.generator.version>
+        <maven.war.plugin.version>3.3.2</maven.war.plugin.version>
+        <jakarta.validation.api.version>3.0.2</jakarta.validation.api.version>
+    </properties>
+
+</project>
