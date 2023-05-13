@@ -67,7 +67,7 @@
                             <autocommit>true</autocommit>
                             <delimiterType>row</delimiterType>
                             <srcFiles>
-                                <srcFile>${project.parent.basedir}/database/schema.sql</srcFile>
+                                <srcFile>${project.parent.basedir}/database/schema_client.sql</srcFile>
                             </srcFiles>
                         </configuration>
                     </execution>
