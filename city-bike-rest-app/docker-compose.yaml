@@ -2,8 +2,25 @@ version: '3.8'
 services:
   city-bike-app:
     image: jetty:11-jdk11-alpine
-    container_name: city-bike-rest
+    container_name: "city-bike-rest"
     ports:
-      - "8080:8080"
+      - "0.0.0.0:8080:8080"
+      - "0.0.0.0:5005:5005"
     volumes:
           - ${PWD}/city-bike-app/target/citybikerest.war:/var/lib/jetty/webapps/root.war
+  mariadb:
+    image: mariadb:10.6.10
+    container_name: "citybike-mariadb"
+    restart: always
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: yes
+      MARIADB_AUTO_UPGRADE: true
+      MARIADB_DISABLE_UPGRADE_BACKUP: true
+      TZ: "Europe/Helsinki"
+    ports:
+      - "127.0.0.1:3306:3306"
+    volumes:
+      - mariadb_data_container:/var/lib/mysql
+      - ${PWD}/config/my.cnf:/etc/mysql/my.cnf
+volumes:
+  mariadb_data_container:

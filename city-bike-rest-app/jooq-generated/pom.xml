@@ -1,0 +1,117 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>city-bike-rest</artifactId>
+        <groupId>org.example</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>jooq-generated</artifactId>
+
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.jooq/jooq-codegen -->
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-codegen</artifactId>
+            <version>${jooq.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jooq/jooq-meta-extensions -->
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-meta-extensions</artifactId>
+            <version>${jooq.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>1.5</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.mariadb.jdbc</groupId>
+                        <artifactId>mariadb-java-client</artifactId>
+                        <version>${mariadb.java.client.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <driver>org.mariadb.jdbc.Driver</driver>
+                    <url>jdbc:mariadb://localhost:3306/</url>
+                    <username>city_bike_test</username>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>create-schema</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <sqlCommand>
+                                DROP DATABASE IF EXISTS client;
+                                CREATE DATABASE client;
+                            </sqlCommand>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>create-client-table</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <url>jdbc:mariadb://localhost:3306/client</url>
+                            <autocommit>true</autocommit>
+                            <delimiterType>row</delimiterType>
+                            <srcFiles>
+                                <srcFile>${project.parent.basedir}/database/schema.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- JOOQ-codegen-maven plugin -->
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+                <version>${jooq.version}</version>
+                <!-- The plugin should hook into the generate goal -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <generator>
+                        <database>
+                            <name>org.jooq.meta.extensions.ddl.DDLDatabase</name>
+                            <properties>
+                                <property>
+                                    <key>scripts</key>
+                                    <value>database/schema.sql</value>
+                                </property>
+                                <property>
+                                    <key>sort</key>
+                                    <value>semantic</value>
+                                </property><property>
+                                <key>defaultNameCase</key>
+                                <value>as_is</value>
+                            </property>
+                            </properties>
+                        </database>
+                        <target>
+                            <packageName>jooq-generated</packageName>
+                            <directory>target/generated-sources/jooq</directory>
+                        </target>
+                    </generator>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

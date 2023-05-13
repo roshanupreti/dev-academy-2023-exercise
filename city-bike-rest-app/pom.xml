@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>city-bike-app</module>
+        <module>jooq-generated</module>
     </modules>
     <packaging>pom</packaging>
     <name>Jersey WebApp</name>
@@ -27,6 +28,8 @@
         <hk2.metadata.generator.version>3.0.3</hk2.metadata.generator.version>
         <maven.war.plugin.version>3.3.2</maven.war.plugin.version>
         <jakarta.validation.api.version>3.0.2</jakarta.validation.api.version>
+        <jooq.version>3.16.19</jooq.version>
+        <mariadb.java.client.version>3.1.4</mariadb.java.client.version>
     </properties>
 
 </project>
