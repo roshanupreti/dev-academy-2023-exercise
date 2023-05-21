@@ -3,13 +3,18 @@ services:
   city-bike-app:
     image: jetty:11-jdk11-alpine
     container_name: "city-bike-rest"
+    build:
+      context: .
+      dockerfile: ./city-bike-app/Dockerfile
     ports:
       - "0.0.0.0:8080:8080"
       - "0.0.0.0:5005:5005"
     volumes:
           - ${PWD}/city-bike-app/target/citybikerest.war:/var/lib/jetty/webapps/root.war
+          - ${PWD}/config/database.properties:/var/lib/jetty/config/database.properties
   mariadb:
     image: mariadb:10.6.10
+    command: --default-authentication-plugin=mysql_native_password
     container_name: "citybike-mariadb"
     restart: always
     environment:
@@ -20,7 +25,11 @@ services:
     ports:
       - "127.0.0.1:3306:3306"
     volumes:
-      - mariadb_data_container:/var/lib/mysql
+      - mariadb-data:/var/lib/mysql
       - ${PWD}/config/my.cnf:/etc/mysql/my.cnf
+      - ${PWD}/database/data/csv/2021-05.csv:/journey/2021-05.csv
+      - ${PWD}/database/data/csv/2021-06.csv:/journey/2021-06.csv
+      - ${PWD}/database/data/csv/2021-07.csv:/journey/2021-07.csv
+      - ${PWD}/database/data/csv/station.csv:/station/station.csv
 volumes:
-  mariadb_data_container:
+  mariadb-data:

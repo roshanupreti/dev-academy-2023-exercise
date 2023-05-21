@@ -12,3 +12,6 @@ init:
 build:
 	mvn install -DskipTests -T 1C
 
+load-data:
+	docker exec -i citybike-mariadb sh < config/mariadb-load-data.sh
+

@@ -9,6 +9,10 @@
 
     <artifactId>jooq-generated</artifactId>
 
+    <properties>
+        <jdbc.url>jdbc:mariadb://localhost:3306/client</jdbc.url>
+    </properties>
+
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.jooq/jooq-codegen -->
         <dependency>
@@ -63,7 +67,7 @@
                             <goal>execute</goal>
                         </goals>
                         <configuration>
-                            <url>jdbc:mariadb://localhost:3306/client</url>
+                            <url>${jdbc.url}</url>
                             <autocommit>true</autocommit>
                             <delimiterType>row</delimiterType>
                             <srcFiles>
@@ -71,6 +75,36 @@
                             </srcFiles>
                         </configuration>
                     </execution>
+                    <!--<execution>
+                        <id>add-journey-data</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <url>${jdbc.url}</url>
+                            <autocommit>true</autocommit>
+                            <delimiterType>row</delimiterType>
+                            <srcFiles>
+                                <srcFile>${project.parent.basedir}/database/data/journey.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>-->
+                   <!-- <execution>
+                        <id>add-station-data</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <url>${jdbc.url}</url>
+                            <autocommit>true</autocommit>
+                            <delimiterType>row</delimiterType>
+                            <srcFiles>
+                                <srcFile>${project.parent.basedir}/database/data/station.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>-->
                 </executions>
             </plugin>
 
@@ -94,7 +128,7 @@
                             <properties>
                                 <property>
                                     <key>scripts</key>
-                                    <value>database/schema.sql</value>
+                                    <value>${project.parent.basedir}/database/schema_client.sql</value>
                                 </property>
                                 <property>
                                     <key>sort</key>
